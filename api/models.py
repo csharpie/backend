@@ -27,7 +27,7 @@ class Location(models.Model):
     class Meta:
         ordering = ('created', )
 
-    def __unicode__(self): 
+    def __str__(self): 
         return self.name
 
 
