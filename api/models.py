@@ -27,6 +27,9 @@ class Location(models.Model):
     class Meta:
         ordering = ('created', )
 
+    def __unicode__(self): 
+        return self.name
+
 
 class Hour(models.Model):
     DAYS = (('AllMo', 'Monday'), ('AllTu', 'Tuesday'), ('AllWe', 'Wednesday'), ('AllTh', 'Thursday'), ('AllFr', 'Friday'),
