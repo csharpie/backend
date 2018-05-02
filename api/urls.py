@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from api import views
 from rest_framework_swagger.views import get_swagger_view
 
-schema_view = get_swagger_view(title='Food Oasis LA API')
+schema_view = get_swagger_view(title='NearGreen API')
 
 urlpatterns = [
     url(r'^locations/$', views.LocationList.as_view()),

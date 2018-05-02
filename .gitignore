@@ -1,3 +1,7 @@
 *.pyc
 env/
 .env
+venv
+.venv
+dev_settings.json
+prod_settings.json

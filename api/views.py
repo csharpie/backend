@@ -1,6 +1,7 @@
 from rest_framework import generics
 
 from api.models import Location
+from api.models import Category
 from api.models import Hour
 from api.serializers import LocationSerializer
 from api.serializers import HourSerializer
@@ -44,22 +45,22 @@ class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class CommunityGardenLocationList(generics.ListCreateAPIView):
     serializer_class = LocationSerializer
-    queryset = Location.objects.filter(category='CG')
+    queryset = Location.objects.filter(category=1)
 
 
 class GroceryStoreLocationList(generics.ListCreateAPIView):
     serializer_class = LocationSerializer
-    queryset = Location.objects.filter(category='GS')
+    queryset = Location.objects.filter(category=2)
 
 
 class FoodPantryLocationList(generics.ListCreateAPIView):
     serializer_class = LocationSerializer
-    queryset = Location.objects.filter(category='FP')
+    queryset = Location.objects.filter(category=3)
 
 
 class SuperMarketLocationList(generics.ListCreateAPIView):
     serializer_class = LocationSerializer
-    queryset = Location.objects.filter(category='SM')
+    queryset = Location.objects.filter(category=4)
 
 
 class HourList(generics.ListCreateAPIView):
@@ -86,8 +87,7 @@ class AnalyticsLocationSummaryCategory(APIView):
 
     def get(self, request, format=None):
         queryset = Location.objects.all()
-        categories = ['Community Garden', 'Grocery Store',
-                      'Food Pantry', 'Super Market']
-        content = [{c.lower(): queryset.filter(category=c).count()}
+        categories = Category.objects.all()
+        content = [{c: queryset.filter(category=c).count()}
                    for c in categories]
         return Response(content)
