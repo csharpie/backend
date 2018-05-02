@@ -3,5 +3,7 @@ env/
 .env
 venv
 .venv
+neargreen/
+.neargreen
 dev_settings.json
 prod_settings.json
