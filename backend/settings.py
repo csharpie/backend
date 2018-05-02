@@ -160,17 +160,17 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-# Loading 3rd Party API Keys and stuff
-import json
-if DEBUG:
-    secret_file = 'dev_settings.json'
-else:
-    secret_file = 'prod_settings.json'
-with open(secret_file) as f:
-    SECRETS = json.load(f)
-secret = lambda n: str(SECRETS[n])
+# # Loading 3rd Party API Keys and stuff
+# import json
+# if DEBUG:
+#     secret_file = 'dev_settings.json'
+# else:
+#     secret_file = 'prod_settings.json'
+# with open(secret_file) as f:
+#     SECRETS = json.load(f)
+# secret = lambda n: str(SECRETS[n])
 
-GOOGLE_MAPS_API_KEY = secret("googleMapsApiKey")
+# GOOGLE_MAPS_API_KEY = secret("googleMapsApiKey")
 
 # Heroku DB Config - will attemp to connect to Heroku db by checking
 # for presence of DATABASE_URL heroku environment variable.
