@@ -157,7 +157,25 @@ NOSE_ARGS = ['--nocapture']
 # Defining pagination
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
 }
 
 # # Loading 3rd Party API Keys and stuff
@@ -170,7 +188,7 @@ REST_FRAMEWORK = {
 #     SECRETS = json.load(f)
 # secret = lambda n: str(SECRETS[n])
 
-# GOOGLE_MAPS_API_KEY = secret("googleMapsApiKey")
+# GOOGLE_MAPS_API_KEY = ""
 
 # Heroku DB Config - will attemp to connect to Heroku db by checking
 # for presence of DATABASE_URL heroku environment variable.

@@ -4,8 +4,6 @@ env/
 .env
 venv
 .venv
-neargreen/
-.neargreen
 .vscode/
 dev_settings.json
 prod_settings.json

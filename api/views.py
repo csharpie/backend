@@ -1,10 +1,9 @@
-from rest_framework import generics
-
+from django.db.models import Count
 from api.models import Location
 from api.models import Category
 from api.models import Hour
-from api.serializers import LocationSerializer
-from api.serializers import HourSerializer
+from api.serializers import LocationSerializer, HourSerializer
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -29,8 +28,8 @@ class NearbyLocationList(generics.ListCreateAPIView):
 
         # set default map center if no params are passed in
         if not (lat and lon):
-            lat = 34.046561
-            lon = -118.2499777
+            lat = 39.95233
+            lon = -75.16379
 
         queryset = Location.objects.in_distance(int(radius), fields=['latitude', 'longitude'],
                                                 points=[float(lat), float(lon)])
@@ -83,11 +82,8 @@ class AnalyticsLocationSummary(APIView):
 
 class AnalyticsLocationSummaryCategory(APIView):
     renderer_class = (JSONRenderer,)
-    serializer_class = LocationSerializer
-
+    
     def get(self, request, format=None):
-        queryset = Location.objects.all()
-        categories = Category.objects.all()
-        content = [{c: queryset.filter(category=c).count()}
-                   for c in categories]
+        content = Category.objects.values('name')\
+                .annotate(total_locations=Count('location'))
         return Response(content)

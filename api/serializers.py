@@ -32,7 +32,6 @@ class HourListSerializer(serializers.ModelSerializer):
         model = Hour
         fields = ('day', 'open_time', 'close_time', )
 
-
 class LocationSerializer(serializers.ModelSerializer):
     hours = HourListSerializer(many=True, read_only=True)
 
